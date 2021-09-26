@@ -13,11 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TransferTest {
 
 
-
-
     @Test
-    void verificationTransactionFromFirstToSecond() {
-        int amountToAddForTest = 300;
+    void verificationTransactionFromSecondToFirst() {
+        int amount = 300;
         val loginPage = open("http://localhost:9999", LoginPage.class);
         val authInfo = DataGenerator.getAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
@@ -25,11 +23,11 @@ public class TransferTest {
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val balanceFirstCardBefore = DashboardPage.getCurrentBalanceOfFirstCard();
         val balanceSecondCardBefore = DashboardPage.getCurrentBalanceOfSecondCard();
-        val TransferPage = dashboardPage.firstCardToRecharge();
+        val transferPage = dashboardPage.firstCardToRecharge();
         val cardInfo = DataGenerator.getSecondCardInfo();
-        TransferPage.transferOnCard(cardInfo);
-        val balanceAfterTransactionOnRecharged = DataGenerator.checkBalanceCardPlus(balanceFirstCardBefore, amountToAddForTest);
-        val balanceAfterTransaction = DataGenerator.checkBalanceCardMinus(balanceSecondCardBefore, amountToAddForTest);
+        transferPage.transferOnCard(cardInfo, amount);
+        val balanceAfterTransactionOnRecharged = DataGenerator.checkBalanceCardPlus(balanceFirstCardBefore, amount);
+        val balanceAfterTransaction = DataGenerator.checkBalanceCardMinus(balanceSecondCardBefore, amount);
         val balanceOfFirstCardAfter = DashboardPage.getCurrentBalanceOfFirstCard();
         val balanceOfSecondCardAfter = DashboardPage.getCurrentBalanceOfSecondCard();
         assertEquals(balanceAfterTransactionOnRecharged, balanceOfFirstCardAfter);
@@ -38,8 +36,8 @@ public class TransferTest {
     }
 
     @Test
-    void verificationTransactionFromSecondToFirst() {
-        int amountToAddForTest = 700;
+    void verificationTransactionFromFirstToSecond() {
+        int amount = 700;
         val loginPage = open("http://localhost:9999", LoginPage.class);
         val authInfo = DataGenerator.getAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
@@ -47,11 +45,11 @@ public class TransferTest {
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val balanceFirstCardBefore = DashboardPage.getCurrentBalanceOfFirstCard();
         val balanceSecondCardBefore = DashboardPage.getCurrentBalanceOfSecondCard();
-        val TransferPage = dashboardPage.firstCardToRecharge();
+        val transferPage = dashboardPage.secondCardToRecharge();
         val cardInfo = DataGenerator.getFirstCardInfo();
-        TransferPage.transferOnCard(cardInfo);
-        val balanceAfterTransactionOnRecharged = DataGenerator.checkBalanceCardPlus(balanceSecondCardBefore, amountToAddForTest);
-        val balanceAfterTransaction = DataGenerator.checkBalanceCardMinus(balanceFirstCardBefore, amountToAddForTest);
+        transferPage.transferOnCard(cardInfo, amount);
+        val balanceAfterTransactionOnRecharged = DataGenerator.checkBalanceCardPlus(balanceSecondCardBefore, amount);
+        val balanceAfterTransaction = DataGenerator.checkBalanceCardMinus(balanceFirstCardBefore, amount);
         val balanceOfFirstCardAfter = DashboardPage.getCurrentBalanceOfSecondCard();
         val balanceOfSecondCardAfter = DashboardPage.getCurrentBalanceOfFirstCard();
         assertEquals(balanceAfterTransactionOnRecharged, balanceOfFirstCardAfter);
