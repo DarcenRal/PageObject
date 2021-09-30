@@ -1,1 +1,1 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/yffwiinfcy94wwvy?svg=true)](https://ci.appveyor.com/project/DarcenRal/pageobject)
+[![Build status](https://ci.appveyor.com/api/projects/status/yffwiinfcy94wwvy/branch/master?svg=true)](https://ci.appveyor.com/project/DarcenRal/pageobject/branch/master)
